@@ -1,7 +1,7 @@
 let currentInfomation = {}
 
 const getCurrentBestGuessForWin = () => {
-	// Iterate through list of remaining five letter words
+	// Iterate through list of remaining five letter words that are possible wordles
 	// Note line number of ones that match criteria of current information
 	// Now have a list of current best guess' for win
 	// Every item in the list theoreticaly has the same chance of winning
@@ -11,7 +11,7 @@ const getCurrentBestGuessForWin = () => {
 }
 
 const getCurrentBestGuessForInfo = () => {
-	// Iterate through list of remaining five letter words
+	// Iterate through list of remaining five letter words that are possible guesses
 	// Give each letter that has not been guessed a score as to its frequncy in remaining words
 	// give each orange letter a change of it being it a certain place in the string
 	// give each words number based on how usful it will be.
