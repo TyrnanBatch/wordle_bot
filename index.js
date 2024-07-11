@@ -1,4 +1,9 @@
-let currentInfomation = {}
+let currentInfomation = {
+	// Mock word mouse
+	notInWord: ['f', 'p', 'g', 'l', 'a'],
+	inWordUnkownPosition: [['m', [4, 5]], ['o', [0, 4]]],
+	inWordKnownPosition: [['u', 2]]
+}
 
 const getCurrentBestGuessForWin = () => {
 	// Iterate through list of remaining five letter words that are possible wordles
