@@ -1,58 +1,54 @@
-const fs = require("fs")
+const fs = require("fs");
 
-let currentInfomation = {
-	// Mock word mouse
-	notInWord: ['f', 'p', 'g', 'l', 'a'],
-	inWordUnkownPosition: [['m', [4, 5]], ['o', [0, 4]]],
-	inWordKnownPosition: [['u', 2]]
-}
+let currentInformation = {
+    // Mock word "mouse"
+    notInWord: ['f', 'p', 'g', 'l', 'a'],
+    inWordUnknownPosition: [['m', [4, 5]], ['o', [0, 4]]],
+    inWordKnownPosition: [['u', 2]]
+};
 
-const wordMatchesInfomation = (word) => {
-	// check if words that are not in word are not in word
-	for (let char of currentInfomation.notInWord)
-		if word.contains(char) {
-			return false
-		}
-		
-	// check words that have an unkown position are in word
-	for (let char of currentInfomation.inWordUnkownPosition) {
-		if word.contains(char[0]) {
-			return false
-		}
-	}
+const wordMatchesInformation = (word) => {
+    // Check if letters that are not in the word are actually not in the word
+    for (let char of currentInformation.notInWord) {
+        if (word.includes(char)) {
+            return false;
+        }
+    }
+    
+    // Check if letters with unknown positions are in the word
+    for (let charInfo of currentInformation.inWordUnknownPosition) {
+        if (word.includes(charInfo[0])) {
+            return false;
+        }
+    }
 
-	// check words that have a known positon are in the correct position  
-	for (let char of currentInfomation.inWordKnownPosition){
-		if word.charAt(char[1]) != char[0] {
-			return false
-		}
-	}
+    // Check if letters in known positions are in the correct position
+    for (let charInfo of currentInformation.inWordKnownPosition) {
+        if (word.charAt(charInfo[1]) !== charInfo[0]) {
+            return false;
+        }
+    }
 
-	return true  
-}
+    return true;
+};
 
 const possibleAnswers = () => {
-	words = fs.readFile('possible_wordles.txt', 'utf8')
-	lines = data.split('\n')
-	possibleWordles = []
+    let data = fs.readFileSync('possible_wordles.txt', 'utf8'); // Use readFileSync for synchronous reading
+    let lines = data.split('\n');
+    let possibleWordles = [];
 
-	for (let line of lines) {
-		if (wordMatchesCurrentInfomation(line)) {
-			possibleWordles.append(line)
-		}
-	}
+    for (let line of lines) {
+        if (wordMatchesInformation(line)) {
+            possibleWordles.push(line); // Use push() instead of append() for arrays
+        }
+    }
 
-	return possibleWordles
-}
+    return possibleWordles;
+};
 
 const getCurrentBestGuessForInfo = () => {
-	// Iterate through list of remaining five letter words that are possible guesses
-	// Give each letter that has not been guessed a score as to its frequncy in remaining words
-	// give each orange letter a change of it being it a certain place in the string
-	// give each words number based on how usful it will be.
-	// Order words and give to 5 to user
+    // Placeholder function, implement logic as needed
+    return 0;
+};
 
-	return 0
-}
-
-console.log(possibleAnswers)
+console.log(possibleAnswers()); // Ensure to call the function with parentheses
