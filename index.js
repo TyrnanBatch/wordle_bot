@@ -33,7 +33,7 @@ const wordMatchesInformation = (word) => {
 };
 
 const possibleAnswers = () => {
-    let data = fs.readFileSync('possible_wordles.txt', 'utf8'); // Use readFileSync for synchronous reading
+    let data = fs.readFileSync('./wordlists/possible_wordles.txt', 'utf8'); // Use readFileSync for synchronous reading
     let lines = data.split('\n');
     let possibleWordles = [];
 
