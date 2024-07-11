@@ -1,3 +1,5 @@
+const fs = require("fs")
+
 let currentInfomation = {
 	// Mock word mouse
 	notInWord: ['f', 'p', 'g', 'l', 'a'],
@@ -5,14 +7,42 @@ let currentInfomation = {
 	inWordKnownPosition: [['u', 2]]
 }
 
-const getCurrentBestGuessForWin = () => {
-	// Iterate through list of remaining five letter words that are possible wordles
-	// Note line number of ones that match criteria of current information
-	// Now have a list of current best guess' for win
-	// Every item in the list theoreticaly has the same chance of winning
-	// give top  most commonly used words to user?
+const wordMatchesInfomation = (word) => {
+	// check if words that are not in word are not in word
+	for (let char of currentInfomation.notInWord)
+		if word.contains(char) {
+			return false
+		}
+		
+	// check words that have an unkown position are in word
+	for (let char of currentInfomation.inWordUnkownPosition) {
+		if word.contains(char[0]) {
+			return false
+		}
+	}
 
-	return 0
+	// check words that have a known positon are in the correct position  
+	for (let char of currentInfomation.inWordKnownPosition){
+		if word.charAt(char[1]) != char[0] {
+			return false
+		}
+	}
+
+	return true  
+}
+
+const possibleAnswers = () => {
+	words = fs.readFile('possible_wordles.txt', 'utf8')
+	lines = data.split('\n')
+	possibleWordles = []
+
+	for (let line of lines) {
+		if (wordMatchesCurrentInfomation(line)) {
+			possibleWordles.append(line)
+		}
+	}
+
+	return possibleWordles
 }
 
 const getCurrentBestGuessForInfo = () => {
@@ -24,3 +54,5 @@ const getCurrentBestGuessForInfo = () => {
 
 	return 0
 }
+
+console.log(possibleAnswers)
