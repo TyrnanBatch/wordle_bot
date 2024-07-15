@@ -15,16 +15,21 @@ const wordMatchesInformation = (word) => {
         }
     }
     
-    // Check if letters with unknown positions are in the word
-    for (let charInfo of currentInformation.inWordUnknownPosition) {
-        if (word.includes(charInfo[0])) {
+    // Check if letters with unknown positions are in the word and not in the given positions
+    for (let [char, positions] of currentInformation.inWordUnknownPosition) {
+        if (!word.includes(char)) {
             return false;
+        }
+        for (let pos of positions) {
+            if (word.charAt(pos) === char) {
+                return false;
+            }
         }
     }
 
     // Check if letters in known positions are in the correct position
-    for (let charInfo of currentInformation.inWordKnownPosition) {
-        if (word.charAt(charInfo[1]) !== charInfo[0]) {
+    for (let [char, pos] of currentInformation.inWordKnownPosition) {
+        if (word.charAt(pos) !== char) {
             return false;
         }
     }
@@ -33,22 +38,21 @@ const wordMatchesInformation = (word) => {
 };
 
 const possibleAnswers = () => {
-    let data = fs.readFileSync('./wordlists/possible_wordles.txt', 'utf8'); // Use readFileSync for synchronous reading
+    let data = fs.readFileSync('/home/tyrnan/Code/projects/wordle_bot/wordlist/possible_answers.txt', 'utf8');
     let lines = data.split('\n');
-    let possibleWordles = [];
+    let possibleWords = [];
 
     for (let line of lines) {
         if (wordMatchesInformation(line)) {
-            possibleWordles.push(line); // Use push() instead of append() for arrays
+            possibleWords.push(line);
         }
     }
 
-    return possibleWordles;
+    return possibleWords;
 };
 
 const getCurrentBestGuessForInfo = () => {
-    // Placeholder function, implement logic as needed
     return 0;
 };
 
-console.log(possibleAnswers()); // Ensure to call the function with parentheses
+console.log(possibleAnswers());
